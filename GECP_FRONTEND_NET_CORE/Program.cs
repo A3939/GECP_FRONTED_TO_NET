@@ -1,5 +1,6 @@
-var builder = WebApplication.CreateBuilder(args);
+using GECP_FRONTEND_NET_CORE;
 
+var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

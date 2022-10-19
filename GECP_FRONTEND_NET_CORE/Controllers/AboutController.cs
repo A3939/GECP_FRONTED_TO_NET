@@ -2,6 +2,7 @@
 using GECP_FRONTEND_NET_CORE.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Linq;
@@ -12,15 +13,19 @@ namespace GECP_FRONTEND_NET_CORE.Controllers
 {
     public class AboutController : Controller
     {
-        private string apiBaseUrl = "https://localhost:44374/api";
         HttpClient hc = new HttpClient();
-        
-
         RestClient client;
-        public AboutController()
+
+        private string apiBaseUrl = string.Empty;
+        private string imageBaseUrl = string.Empty;
+        public AboutController(IConfiguration configuration)
         {
+
+            apiBaseUrl = configuration["AppIdentitySettings:apiBaseUrl"];
+            imageBaseUrl = configuration["AppIdentitySettings:imageBaseUrl"];
             client = new RestClient(apiBaseUrl);
         }
+
         public async Task<IActionResult> VisionMission()
         {
             List<VisionVM> visionVM = new List<VisionVM>();
